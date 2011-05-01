@@ -10,7 +10,7 @@ class IndexController extends \Zend\Controller\Action
 
     public function indexAction()
     {
-      $this->view->name = 'Hello World';
+        // action body
     }
 
 

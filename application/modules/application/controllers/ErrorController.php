@@ -1,51 +1,28 @@
-<?php
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Zend Framework Default Application</title>
+</head>
+<body>
+  <h1>An error occurred</h1>
+  <h2><?php echo $this->vars('message') ?></h2>
 
-class ErrorController extends \Zend\Controller\Action
-{
+  <?php if ($this->vars('exception')): ?>
 
-    public function errorAction()
-    {
-        $errors = $this->_getParam('error_handler');
-        
-        switch ($errors->type) {
-            case \Zend\Controller\Plugin\ErrorHandler::EXCEPTION_NO_ROUTE:
-            case \Zend\Controller\Plugin\ErrorHandler::EXCEPTION_NO_CONTROLLER:
-            case \Zend\Controller\Plugin\ErrorHandler::EXCEPTION_NO_ACTION:
-        
-                // 404 error -- controller or action not found
-                $this->getResponse()->setHttpResponseCode(404);
-                $this->view->vars()->message = 'Page not found';
-                break;
-            default:
-                // application error
-                $this->getResponse()->setHttpResponseCode(500);
-                $this->view->vars()->message = 'Application error';
-                break;
-        }
-        
-        // Log exception, if logger available
-        if (($log = $this->getLog())) {
-            $log->crit($this->view->vars()->message, $errors->exception);
-        }
-        
-        // conditionally display exceptions
-        if ($this->getInvokeArg('displayExceptions') == true) {
-            $this->view->vars()->exception = $errors->exception;
-        }
-        
-        $this->view->vars()->request = $errors->request;
-    }
+  <h3>Exception information:</h3>
+  <p>
+      <b>Message:</b> <?php echo $this->vars('exception')->getMessage() ?>
+  </p>
 
-    public function getLog()
-    {
-        $bootstrap = $this->getInvokeArg('bootstrap');
-        if (!$bootstrap->hasPluginResource('Log')) {
-            return false;
-        }
-        $log = $bootstrap->getResource('Log');
-        return $log;
-    }
+  <h3>Stack trace:</h3>
+  <pre><?php echo $this->vars('exception')->getTraceAsString() ?>
+  </pre>
 
+  <h3>Request Parameters:</h3>
+  <pre><?php echo var_export($this->vars('request')->getParams(), true) ?>
+  </pre>
+  <?php endif ?>
 
-}
-
+</body>
+</html>
