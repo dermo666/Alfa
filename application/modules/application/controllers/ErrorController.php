@@ -6,6 +6,10 @@
 </head>
 <body>
   <h1>An error occurred</h1>
+  <pre>
+  <?php print_r($this->getResponse()->getException()); die(); ?>
+  </pre>
+  
   <h2><?php echo $this->vars('message') ?></h2>
 
   <?php if ($this->vars('exception')): ?>
