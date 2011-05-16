@@ -1,16 +1,33 @@
 <?php
 
-use Zend\Controller;
-use Domain\Model;
-use Zend\Registry,
-    Domain\Model\User,
+use Zend\Controller,
+    Zend\Registry,
+    Domain\Repository\InvoiceRepository,
     Domain\Model\Invoice,
-    Domain\Model\MoneyValue;
+    Domain\Model\MoneyValue,
+    Domain\Model\User;
 
 class IndexController extends \Zend\Controller\Action
 {
 
   public function indexAction()
+  {
+    // TODO: View Variables to display them in the view.
+    echo 'Hello World';
+  }
+  
+  public function invoiceFindAction()
+  {
+    $dm = Registry::getInstance()->get('dm');
+    
+    $repo = new InvoiceRepository($dm);
+    
+    $invoices = $repo->findByTotal(55);
+    
+    echo 'Invoices found: '.count($invoices);
+  }
+  
+  public function invoiceSaveAction()
   {
     $dm = Registry::getInstance()->get('dm');
     
@@ -23,6 +40,7 @@ class IndexController extends \Zend\Controller\Action
     
     echo 'Invoice saved: '.$invoice->getId();
   }
+  
   
   public function saveUserAction()
   {

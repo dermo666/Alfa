@@ -1,31 +1,51 @@
 <?php
+/**
+ * Invoice entity.
+ * 
+ * @author tomas
+ *
+ */
 
 namespace Domain\Model;
 
-/** @Document */
+/** 
+ * @Document 
+ */
 class Invoice
 {
 
-  /** @Id */
+  /**
+   * Invoice Entity Id.
+   * 
+   * @var   string
+   * 
+   * @Id 
+   */
   private $id;
   
-  /** @EmbedOne(targetDocument="MoneyValue") */
+  /**
+   * Total Value of Invoice.
+   *  
+   * @var    Domain\Model\MoneyValue
+   * 
+   * @EmbedOne(targetDocument="MoneyValue") 
+   */
   private $total;
 
-  public function __construct()
-  {
-  }
-  
   /**
-   * @return the $id
-    */
+   * Get Invoice Entity Id.
+   * 
+   * @return string
+   */
   public function getId()
   {
     return $this->id;
   }
 
   /**
-   * @return the $total
+   * Get Invoice Total.
+   * 
+   * @return Domain\Model\MoneyValue
    */
   public function getTotal()
   {
@@ -33,7 +53,11 @@ class Invoice
   }
 
   /**
-   * @param $total the $total to set
+   * Set Invoice Total.
+   * 
+   * @param Domain\Model\MoneyValue $total Invoice Total
+   * 
+   * @return void
    */
   public function setTotal(MoneyValue $total)
   {
