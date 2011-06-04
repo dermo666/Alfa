@@ -3,7 +3,8 @@
 use Zend\Config\Ini,
     Zend\Loader\StandardAutoloader,
     Zend\Registry,
-    App\Application\Resource\DoctrineMongo;
+    App\Application\Resource\DoctrineMongo,
+    Domain\Model\User;
 
 class Bootstrap extends \Zend\Application\Bootstrap
 {
@@ -39,5 +40,14 @@ class Bootstrap extends \Zend\Application\Bootstrap
     Registry::getInstance()->set('dm', $dm);
     
     return $dm;
+  }
+  
+  protected function _initAuth()
+  {
+    $dm   = Registry::getInstance()->get('dm');
+    $user = $dm->getRepository('Domain\Model\User')->find('4de999713eecad69a02e4145');
+    
+    // Simulate logged in User.
+    Registry::getInstance()->set('user', $user);
   }
 }

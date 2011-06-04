@@ -2,7 +2,9 @@
 
 namespace Domain\Model;
 
-/** @Document */
+/**
+ * @Document
+ */
 class User
 {
 
@@ -16,6 +18,8 @@ class User
   private $email;
 
   /**
+   * Get Id.
+   * 
    * @return the $id
    */
   public function getId()
@@ -24,6 +28,8 @@ class User
   }
 
   /**
+   * Get Name.
+   * 
    * @return the $name
    */
   public function getName()
@@ -32,6 +38,8 @@ class User
   }
 
   /**
+   * Get Email.
+   * 
    * @return the $email
    */
   public function getEmail()
@@ -40,14 +48,8 @@ class User
   }
 
   /**
-   * @param $id the $id to set
-   */
-  public function setId($id)
-  {
-    $this->id = $id;
-  }
-
-  /**
+   * Set Name.
+   * 
    * @param $name the $name to set
    */
   public function setName($name)
@@ -56,13 +58,12 @@ class User
   }
 
   /**
+   * Set Email.
+   * 
    * @param $email the $email to set
    */
   public function setEmail($email)
   {
     $this->email = $email;
   }
-  
-//    /** @ReferenceMany(targetDocument="BlogPost", cascade="all") */
-//    private $posts = array();
 }

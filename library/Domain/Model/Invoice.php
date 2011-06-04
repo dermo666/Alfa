@@ -8,8 +8,10 @@
 
 namespace Domain\Model;
 
+use Zend\Registry;
+
 /** 
- * @Document 
+ * @Document @HasLifecycleCallbacks
  */
 class Invoice
 {
@@ -32,6 +34,42 @@ class Invoice
    */
   private $total;
 
+  /**
+   * Created By.
+   * 
+   * @var    Domain\Model\User
+   * 
+   * @ReferenceOne(targetDocument="User")
+   */
+  private $createdBy;
+  
+  /**
+   * Created On.
+   * 
+   * @var    Date
+   * 
+   * @Field
+   */
+  private $createdAt;
+  
+  /**
+   * Modified By.
+   * 
+   * @var    Domain\Model\User
+   * 
+   * @ReferenceOne(targetDocument="User")
+   */
+  private $modifiedBy;
+  
+  /**
+   * Modified On.
+   * 
+   * @var    Date
+   * 
+   * @Field
+   */
+  private $modifiedAt;  
+  
   /**
    * Get Invoice Entity Id.
    * 
@@ -62,5 +100,47 @@ class Invoice
   public function setTotal(MoneyValue $total)
   {
     $this->total = $total;
+  }
+  
+  /**
+   * Get Created By.
+   * 
+   * @return User.
+   */
+  public function getCreatedBy()
+  {
+    return $this->createdBy;
+  }
+  
+  /**
+   * Get Modified By.
+   * 
+   * @return User.
+   */
+  public function getModifiedBy()
+  {
+    return $this->modifiedBy;
+  }
+  
+  /**
+   * Set basic prePersist data.
+   * 
+   * @PrePersist
+   */
+  public function prePersist()
+  {
+    $this->createdBy = Registry::getInstance()->get('user');
+    $this->createdAt = date('c');
+  }
+
+  /**
+   * Set basic preUpdate data.
+   * 
+   * @PreUpdate
+   */
+  public function preUpdate()
+  {
+    $this->modifiedBy = Registry::getInstance()->get('user');
+    $this->modifiedAt = date('c');
   }
 }

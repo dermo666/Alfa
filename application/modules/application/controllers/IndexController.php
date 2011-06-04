@@ -12,7 +12,6 @@ class IndexController extends \Zend\Controller\Action
 
   public function indexAction()
   {
-    // TODO: View Variables to display them in the view.
     echo 'Hello World';
   }
   
@@ -35,10 +34,17 @@ class IndexController extends \Zend\Controller\Action
     $invoice = new Invoice();
     $invoice->setTotal($amount);
     
-    $dm->persist ( $invoice );
-    $dm->flush();
+    $repo = new InvoiceRepository($dm);
+    $repo->add($invoice);
     
-    echo 'Invoice saved: '.$invoice->getId();
+    $dm->flush();
+    echo '<pre>Invoice created: ';print_r($invoice);
+    
+    $amount  = new MoneyValue(100, 'AUD'); 
+    $invoice->setTotal($amount);
+
+    $dm->flush();
+    echo 'Invoice saved: ';print_r($invoice);
   }
   
   
