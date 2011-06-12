@@ -1,2 +1,9 @@
-<?php echo $this->message; ?>
-
+<?php foreach ($this->packages as $packageName) {?>
+<div class="post">
+  <h2 class="title"><a href="<?php echo strtolower($packageName); ?>/index"><?php echo $packageName ?> Package</a></h2>
+  <div class="entry">
+    <p>Basic examples of <?php echo $packageName ?> package. Sed lacus. Donec lectus. Nullam pretium nibh ut turpis. Nam bibendum. In nulla tortor, elementum vel, tempor at, varius non, purus. Mauris vitae nisl nec consectetuer. Donec ipsum. Proin imperdiet est.</p>
+    <div><a href="<?php echo strtolower($packageName); ?>/index" class="links">Go to ...</a></div>
+</div>
+</div>
+<?php } ?>

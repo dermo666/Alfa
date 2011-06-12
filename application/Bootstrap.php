@@ -42,6 +42,11 @@ class Bootstrap extends \Zend\Application\Bootstrap
     return $dm;
   }
   
+  /**
+   * Mimick the authenticated user.
+   * 
+   * @return void
+   */
   protected function _initAuth()
   {
     $dm   = Registry::getInstance()->get('dm');
@@ -49,5 +54,17 @@ class Bootstrap extends \Zend\Application\Bootstrap
     
     // Simulate logged in User.
     Registry::getInstance()->set('user', $user);
+  }
+  
+  /**
+   * Init View.
+   * 
+   * @TODO: Could not get this working - couldn't init the view helpers.
+   * 
+   * @return void
+   */
+  protected function _initView()
+  {
+    // How to init Zend View Helpers?
   }
 }
