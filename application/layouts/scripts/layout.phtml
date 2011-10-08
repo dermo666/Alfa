@@ -1,7 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<?php echo $this->plugin('doctype'); ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<?php echo $this->plugin('headMeta'); ?>
 <title>Project Alfa</title>
   <base href="http://localhost/alfa_github/public/" />
   <meta name="keywords" content="Zend Framework 2 MongoDB" />
@@ -38,7 +38,7 @@
   <!-- end #header-wrapper -->
   <div id="page">
     <div id="content">
-      <?php echo $this->broker('layout')->getLayout()->content; ?>
+      <?php echo $this->plugin('layout')->getLayout()->content; ?>
     </div><!-- end #content -->
     <div id="sidebar">
       <ul>

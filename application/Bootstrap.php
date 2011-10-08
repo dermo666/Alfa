@@ -65,6 +65,27 @@ class Bootstrap extends \Zend\Application\Bootstrap
    */
   protected function _initView()
   {
-    // How to init Zend View Helpers?
+    $this->bootstrap('layout');
+    $this->_layout = $this->getResource('layout');
+    $this->_view = $this->_layout->getView();
+    
+    $this->_view->plugin('doctype')->setDoctype('XHTML1_STRICT');
+    $this->_view->plugin('headMeta')->appendHttpEquiv('Content-type', 'text/html;charset=utf-8');
+    // TODO: $this->_view->plugin('headTitle')->setTitle('Project Alfa'); ?
+    
+
+//        $this->_view->addHelperPath('PPN/View/Helper','PPN_View_Helper');
+//        $this->_view->addHelperPath('ZendX/JQuery/View/Helper','ZendX_JQuery_View_Helper');
+
+//        $this->_view->jQuery()
+//                        ->addStylesheet('/static/css/smoothness/jquery-ui-1.8.1.custom.css')
+//                        ->setVersion('1.4.2')
+//                        ->enable()
+//                        ->setUiVersion('1.8.1')
+//                        ->setLocalPath('/static/js/jquery-1.4.2.min.js')
+//                        ->setUiLocalPath('/static/js/jquery-ui-1.8.1.custom.min.js')
+//                        ->uiEnable();
+//    $planetHelperLoader = new \Planet\View\HelperLoader();
+//    $this->_view->plugin()->getClassLoader()->registerPlugins($planetHelperLoader);
   }
 }
