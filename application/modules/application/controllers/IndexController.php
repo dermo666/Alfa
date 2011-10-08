@@ -2,10 +2,10 @@
 
 use Zend\Controller,
     Zend\Registry,
-    Domain\Repository\InvoiceRepository,
-    Domain\Model\Invoice,
-    Domain\Model\MoneyValue,
-    Domain\Model\User;
+    Domain\Invoice\Repository\InvoiceRepository,
+    Domain\Invoice\Entity\Invoice,
+    Domain\Common\Entity\MoneyValue,
+    Domain\User\Entity\User;
 
 class IndexController extends \Zend\Controller\Action
 {

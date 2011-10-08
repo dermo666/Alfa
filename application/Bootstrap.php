@@ -4,7 +4,7 @@ use Zend\Config\Ini,
     Zend\Loader\StandardAutoloader,
     Zend\Registry,
     App\Application\Resource\DoctrineMongo,
-    Domain\Model\User;
+    Domain\User\Entity\User;
 
 class Bootstrap extends \Zend\Application\Bootstrap
 {
@@ -50,7 +50,7 @@ class Bootstrap extends \Zend\Application\Bootstrap
   protected function _initAuth()
   {
     $dm   = Registry::getInstance()->get('dm');
-    $user = $dm->getRepository('Domain\Model\User')->find('4de999713eecad69a02e4145');
+    $user = $dm->getRepository('Domain\User\Entity\User')->find('4de999713eecad69a02e4145');
     
     // Simulate logged in User.
     Registry::getInstance()->set('user', $user);
@@ -71,12 +71,11 @@ class Bootstrap extends \Zend\Application\Bootstrap
     
     $this->_view->plugin('doctype')->setDoctype('XHTML1_STRICT');
     $this->_view->plugin('headMeta')->appendHttpEquiv('Content-type', 'text/html;charset=utf-8');
-    // TODO: $this->_view->plugin('headTitle')->setTitle('Project Alfa'); ?
+    // TODO: $this->_view->plugin('headTitle')->setTitle('Project Alfa');?
     
-
 //        $this->_view->addHelperPath('PPN/View/Helper','PPN_View_Helper');
 //        $this->_view->addHelperPath('ZendX/JQuery/View/Helper','ZendX_JQuery_View_Helper');
-
+//
 //        $this->_view->jQuery()
 //                        ->addStylesheet('/static/css/smoothness/jquery-ui-1.8.1.custom.css')
 //                        ->setVersion('1.4.2')

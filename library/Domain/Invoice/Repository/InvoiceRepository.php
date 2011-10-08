@@ -10,15 +10,15 @@
  *
  */
 
-namespace Domain\Repository;
+namespace Domain\Invoice\Repository;
 
 use Doctrine\ODM\MongoDB\DocumentManager,
-    Domain\Model\Invoice;
+    Domain\Invoice\Entity\Invoice;
 
 class InvoiceRepository
 {
   
-  const ENTITY_NAME = 'Domain\Model\Invoice';
+  const ENTITY_NAME = 'Domain\Invoice\Entity\Invoice';
   
   /**
    * Document Manager.

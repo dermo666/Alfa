@@ -1,6 +1,6 @@
 <?php
 
-namespace Domain\Model;
+namespace Domain\Common\Entity;
 
 /** @EmbeddedDocument */
 class MoneyValue

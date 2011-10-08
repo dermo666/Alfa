@@ -6,9 +6,11 @@
  *
  */
 
-namespace Domain\Model;
+namespace Domain\Invoice\Entity;
 
-use Zend\Registry;
+use Zend\Registry,
+    Domain\Common\Entity\MoneyValue,
+    Domain\User\Entity\User;
 
 /** 
  * @Document @HasLifecycleCallbacks
@@ -28,18 +30,18 @@ class Invoice
   /**
    * Total Value of Invoice.
    *  
-   * @var    Domain\Model\MoneyValue
+   * @var    Domain\Common\Entity\MoneyValue
    * 
-   * @EmbedOne(targetDocument="MoneyValue") 
+   * @EmbedOne(targetDocument="Domain\Common\Entity\MoneyValue") 
    */
   private $total;
 
   /**
    * Created By.
    * 
-   * @var    Domain\Model\User
+   * @var    Domain\User\Entity\User
    * 
-   * @ReferenceOne(targetDocument="User")
+   * @ReferenceOne(targetDocument="Domain\User\Entity\User")
    */
   private $createdBy;
   
@@ -55,9 +57,9 @@ class Invoice
   /**
    * Modified By.
    * 
-   * @var    Domain\Model\User
+   * @var    Domain\Entity\User
    * 
-   * @ReferenceOne(targetDocument="User")
+   * @ReferenceOne(targetDocument="Domain\User\Entity\User")
    */
   private $modifiedBy;
   
@@ -83,7 +85,7 @@ class Invoice
   /**
    * Get Invoice Total.
    * 
-   * @return Domain\Model\MoneyValue
+   * @return Domain\Common\Entity\MoneyValue
    */
   public function getTotal()
   {
@@ -93,7 +95,7 @@ class Invoice
   /**
    * Set Invoice Total.
    * 
-   * @param Domain\Model\MoneyValue $total Invoice Total
+   * @param Domain\Common\Entity\MoneyValue $total Invoice Total
    * 
    * @return void
    */
@@ -105,7 +107,7 @@ class Invoice
   /**
    * Get Created By.
    * 
-   * @return User.
+   * @return Domain\User\Entity\User.
    */
   public function getCreatedBy()
   {
@@ -115,7 +117,7 @@ class Invoice
   /**
    * Get Modified By.
    * 
-   * @return User.
+   * @return Domain\User\Entity\User.
    */
   public function getModifiedBy()
   {

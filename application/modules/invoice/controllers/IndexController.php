@@ -2,6 +2,13 @@
 
 namespace Invoice;
 
+use Zend\Controller,
+    Zend\Registry,
+    Domain\Invoice\Repository\InvoiceRepository,
+    Domain\Invoice\Entity\Invoice,
+    Domain\Common\Entity\MoneyValue,
+    Domain\User\Entity\User;
+
 class IndexController extends \Zend\Controller\Action
 {
 
