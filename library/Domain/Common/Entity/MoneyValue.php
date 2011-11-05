@@ -22,6 +22,34 @@ class MoneyValue
   }
 
   /**
+   * Add Amount of Money.
+   * 
+   * @return MoneyValue
+   */
+  public function add(MoneyValue $amount)
+  {
+    if ($amount->currency != $this->currency)
+      throw new DomainException('Invalid Currency for adding amount.');
+      
+    $amount = $this->amount + $amount->amount;
+    return new self($amount, $this->currency);  
+  }
+  
+  /**
+   * Sub Amount of Money.
+   * 
+   * @return MoneyValue
+   */
+  public function sub(MoneyValue $amount)
+  {
+    if ($amount->currency != $this->currency)
+      throw new DomainException('Invalid Currency for adding amount.');
+      
+    $amount = $this->amount - $amount->amount;
+    return new self($amount, $this->currency);  
+  }  
+  
+  /**
    * To string.
    */
   public function __toString()

@@ -1,5 +1,7 @@
 <?php
 
+use Gedmo;
+use Zend\Loader;
 use Zend\Config\Ini,
     Zend\Loader\StandardAutoloader,
     Zend\Registry,
@@ -21,7 +23,8 @@ class Bootstrap extends \Zend\Application\Bootstrap
     $loader = new StandardAutoloader();
     $loader->registerNamespace('Doctrine', PROJECT_PATH.'/library/Doctrine')
            ->registerNamespace('App', PROJECT_PATH.'/library/App')
-           ->registerNamespace('Domain', PROJECT_PATH.'/library/Domain');
+           ->registerNamespace('Domain', PROJECT_PATH.'/library/Domain')
+           ->registerNamespace('Gedmo', PROJECT_PATH.'/library/Doctrine/Extension/Gedmo');
     $loader->register();
   }
   

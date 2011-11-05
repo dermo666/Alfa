@@ -2,13 +2,16 @@
 
 namespace App\Application\Resource;
 
+use Gedmo\Timestampable;
+
 use Doctrine\Common\ClassLoader, 
     Doctrine\Common\Annotations\AnnotationReader, 
     Doctrine\ODM\MongoDB\DocumentManager, 
     Doctrine\MongoDB\Connection, 
     Doctrine\ODM\MongoDB\Configuration, 
     Doctrine\ODM\MongoDB\Mapping\Driver\AnnotationDriver, 
-    Doctrine\Common\EventManager;
+    Doctrine\Common\EventManager,
+    Gedmo\Timestampable\TimestampableListener;
 
 class DoctrineMongo extends \Zend\Application\Resource\AbstractResource
 {
@@ -41,7 +44,7 @@ class DoctrineMongo extends \Zend\Application\Resource\AbstractResource
     $config->setMetadataDriverImpl(new AnnotationDriver($reader, $this->getDocumentPaths()));
     
     $evm = new EventManager();
-    //$evm->addEventSubscriber(new SlugSubscriber());
+    $evm->addEventSubscriber(new TimestampableListener());
 
     return DocumentManager::create(new Connection(), $config, $evm);
   }

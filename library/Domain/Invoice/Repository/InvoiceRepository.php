@@ -42,7 +42,7 @@ class InvoiceRepository
    * 
    * @param mixed $id Id of the Entity.
    * 
-   * @return mixed
+   * @return Domain\Invoice\Entity\Invoice
    */
   public function find($id)
   {
