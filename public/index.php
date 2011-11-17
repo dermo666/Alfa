@@ -1,30 +1,29 @@
 <?php
-
-// Define path to project directory
-defined('PROJECT_PATH')
-|| define('PROJECT_PATH', realpath(__DIR__ .'/../'));
-
-// Define path to application directory
-defined('APPLICATION_PATH')
-    || define('APPLICATION_PATH', realpath(__DIR__ . '/../application'));
-
 // Define application environment
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
-    
-// Ensure library/ is on include_path
+
+// Ensure ZF is on the include path
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../library'),
+    realpath(__DIR__ . '/../library'),
     get_include_path(),
 )));
 
-/** Zend_Application */
-require_once 'Zend/Application/Application.php';
+require_once 'Zend/Loader/AutoloaderFactory.php';
+Zend\Loader\AutoloaderFactory::factory(array('Zend\Loader\StandardAutoloader' => array()));
+
+$appConfig = include __DIR__ . '/../configs/application.config.php';
+
+$moduleLoader = new Zend\Loader\ModuleAutoloader($appConfig['module_paths']);
+$moduleLoader->register();
+
+$moduleManager = new Zend\Module\Manager($appConfig['modules']);
+$listenerOptions = new Zend\Module\Listener\ListenerOptions($appConfig['module_listener_options']);
+$moduleManager->setDefaultListenerOptions($listenerOptions);
+$moduleManager->loadModules();
 
 // Create application, bootstrap, and run
-$application = new Zend\Application\Application (
-    APPLICATION_ENV,
-    APPLICATION_PATH . '/configs/application.ini'
-);
-$application->bootstrap()
-            ->run();
+$bootstrap      = new Zend\Mvc\Bootstrap($moduleManager->getMergedConfig());
+$application    = new Zend\Mvc\Application;
+$bootstrap->bootstrap($application);
+$application->run()->send();
