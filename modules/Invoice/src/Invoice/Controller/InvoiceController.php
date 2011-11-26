@@ -9,7 +9,7 @@ class InvoiceController extends ActionController
 {
 	
   /**
-   * Entity Manager Factory.
+   * Entity Manager Factory. 
    * 
    * @var \App\Application\MongoConnectionFactory
    */	
