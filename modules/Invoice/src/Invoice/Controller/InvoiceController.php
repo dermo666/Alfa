@@ -3,7 +3,7 @@
 namespace Invoice\Controller;
 
 use Zend\Mvc\Controller\ActionController, 
-    App\Application\Resource\DoctrineMongo;
+    App\Application\MongoConnectionFactory;
 
 class InvoiceController extends ActionController
 {
@@ -11,7 +11,7 @@ class InvoiceController extends ActionController
   /**
    * Entity Manager Factory.
    * 
-   * @var \App\Application\Resource\DoctrineMongo
+   * @var \App\Application\MongoConnectionFactory
    */	
   private $entityManagerFactory = NULL;
   
@@ -25,11 +25,11 @@ class InvoiceController extends ActionController
   /**
    * DI setter for Entity Manager Factory.
    * 
-   * @param DoctrineMongo $entityManagerFactory Doctrine MongoDB Entity Manager Factory.
+   * @param MongoConnectionFactory $entityManagerFactory Doctrine MongoDB Entity Manager Factory.
    * 
    * @return InvoiceController
    */
-  public function setEntityManagerFactory(DoctrineMongo $entityManagerFactory)
+  public function setEntityManagerFactory(MongoConnectionFactory $entityManagerFactory)
   {
     $this->entityManagerFactory = $entityManagerFactory;
     return $this;

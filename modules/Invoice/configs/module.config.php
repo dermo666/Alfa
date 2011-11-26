@@ -7,7 +7,7 @@ return array(
             ),
             'Invoice\Controller\InvoiceController' => array(
                 'parameters' => array(
-                    'entityManagerFactory' => 'App\Application\Resource\DoctrineMongo',
+                    'entityManagerFactory' => 'App\Application\MongoConnectionFactory',
                 ),
             ),
             'Zend\View\PhpRenderer' => array(

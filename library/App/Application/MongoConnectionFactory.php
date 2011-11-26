@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Resource;
+namespace App\Application;
 
 use Gedmo\Timestampable;
 
@@ -13,7 +13,7 @@ use Doctrine\Common\ClassLoader,
     Doctrine\Common\EventManager,
     Gedmo\Timestampable\TimestampableListener;
 
-class DoctrineMongo extends \Zend\Application\Resource\AbstractResource
+class MongoConnectionFactory
 {
 
   /**
@@ -21,15 +21,17 @@ class DoctrineMongo extends \Zend\Application\Resource\AbstractResource
    * 
    * @return \Doctrine\ODM\MongoDB\DocumentManager
    */
-  public function init()
+  public function getEntityManager()
   {
-    $options = $this->getOptions() + array(
-                                       'defaultDB'         => 'my_database', 
-                                       'proxyDir'          => PROJECT_PATH . '/data/mongo/proxies', 
-                                       'proxyNamespace'    => 'Application\Proxies', 
-                                       'hydratorDir'       => PROJECT_PATH . '/data/mongo/hydrators', 
-                                       'hydratorNamespace' => 'Application\Hydrators',
-                                      );
+    $projectPath = realpath(__DIR__ . '/../../../');
+    
+    $options = array(
+                'defaultDB'         => 'my_database', 
+                'proxyDir'          => $projectPath . '/data/mongo/proxies', 
+                'proxyNamespace'    => 'Application\Proxies', 
+                'hydratorDir'       => $projectPath . '/data/mongo/hydrators', 
+                'hydratorNamespace' => 'Application\Hydrators',
+               );
     
     $config = new Configuration();
     $config->setProxyDir($options ['proxyDir']);
@@ -39,9 +41,9 @@ class DoctrineMongo extends \Zend\Application\Resource\AbstractResource
     $config->setDefaultDB($options ['defaultDB']);
     
     $reader = new AnnotationReader();
-    $reader->setDefaultAnnotationNamespace('Doctrine\ODM\MongoDB\Mapping\\');
+    //$reader->setDefaultAnnotationNamespace('Doctrine\ODM\MongoDB\Mapping\\');
     
-    $config->setMetadataDriverImpl(new AnnotationDriver($reader, $this->getDocumentPaths()));
+    $config->setMetadataDriverImpl(new AnnotationDriver($reader, $this->getDocumentPaths($projectPath)));
     
     $evm = new EventManager();
     $evm->addEventSubscriber(new TimestampableListener());
@@ -56,10 +58,12 @@ class DoctrineMongo extends \Zend\Application\Resource\AbstractResource
    * 
    * @return array
    */
-  public function getDocumentPaths()
+  public function getDocumentPaths($projectPath)
   {
     $paths = array();
-    foreach(new \DirectoryIterator(PROJECT_PATH . '/library/Domain') as $package) {
+    
+    // TODO: Use Filter for php files
+    foreach(new \DirectoryIterator($projectPath . '/library/Domain') as $package) {
       $path = $package->getPathname() . '/Entity';
       
       if((! $package->isDir() || $package->isDot()) || ! is_dir($path)) {

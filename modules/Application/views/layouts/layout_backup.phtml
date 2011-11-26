@@ -1,12 +1,11 @@
-<?php echo $this->plugin('doctype'); ?>
+<?php echo $this->doctype(); ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<?php echo $this->plugin('headMeta'); ?>
-<title>Project Alfa</title>
-  <base href="http://localhost/alfa_github/public/" />
+  <?php echo $this->headMeta(); ?>
+  <?php echo $this->headTitle();  ?>
   <meta name="keywords" content="Zend Framework 2 MongoDB" />
   <meta name="description" content="This is a research project of Zend Framework 2.0" />
-  <link href="css/style.css" rel="stylesheet" type="text/css" media="screen" />
+  <?php echo $this->headLink()->prependStylesheet('/css/style.css'); ?>
 </head>
 <body>
   <div id="logo">
@@ -38,7 +37,7 @@
   <!-- end #header-wrapper -->
   <div id="page">
     <div id="content">
-      <?php echo $this->plugin('layout')->getLayout()->content; ?>
+      <?php echo $this->raw('content'); ?>      
     </div><!-- end #content -->
     <div id="sidebar">
       <ul>
@@ -71,5 +70,3 @@
   <!-- end #footer -->
 </body>
 </html>
-
-
