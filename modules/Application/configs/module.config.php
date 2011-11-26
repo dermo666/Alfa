@@ -1,6 +1,6 @@
 <?php
 return array(
-    //'bootstrap_class' => 'Application\Bootstrap',
+    'bootstrap_class' => 'Application\Bootstrap',
     'layout'          => 'layouts/layout.phtml',
     'di'              => array(
         'instance' => array(
