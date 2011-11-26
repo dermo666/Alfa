@@ -7,6 +7,7 @@ return array(
     'modules' => array(
         'Application',
         'ZendSkeletonModule',    
+        'Invoice',
     ),
     'module_listener_options' => array( 
         'config_cache_enabled'     => false,

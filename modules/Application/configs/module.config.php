@@ -6,6 +6,7 @@ return array(
         'instance' => array(
             'alias' => array(
                 'index' => 'Application\Controller\IndexController',
+                'test' => 'Application\Controller\TestController',
                 'error' => 'Application\Controller\ErrorController',
                 'view'  => 'Zend\View\PhpRenderer',
             ),
