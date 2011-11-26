@@ -5,6 +5,11 @@ return array(
             'alias' => array(
                 'invoice' => 'Invoice\Controller\InvoiceController',
             ),
+            'Invoice\Controller\InvoiceController' => array(
+                'parameters' => array(
+                    'entityManagerFactory' => 'App\Application\Resource\DoctrineMongo',
+                ),
+            ),
             'Zend\View\PhpRenderer' => array(
                 'parameters' => array(
                     'options'  => array(

@@ -26,6 +26,12 @@ class Module implements AutoloaderProvider
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                    'Doctrine'    => __DIR__ . '/../../vendors/Doctrine',
+                    'Gedmo'       => __DIR__ . '/../../vendors/Doctrine/Extension/Gedmo',
+//                    'Doctrine\\ODM'    => __DIR__ . '/../../vendors/Doctrine/ODM',
+//                    'Doctrine\\DBAL'   => __DIR__ . '/vendors/Doctrine/DBAL',
+//                    'Doctrine\\Common' => __DIR__ . '/vendors/Doctrine/Common',
+//                    'Doctrine\\Common' => __DIR__ . '/vendor/Doctrine/Common',                    
                 ),
             ),
         );
