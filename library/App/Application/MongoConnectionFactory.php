@@ -2,8 +2,6 @@
 
 namespace App\Application;
 
-use Gedmo\Timestampable;
-
 use Doctrine\Common\ClassLoader, 
     Doctrine\Common\Annotations\AnnotationReader, 
     Doctrine\ODM\MongoDB\DocumentManager, 

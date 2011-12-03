@@ -8,6 +8,7 @@ return array(
         'Application',
         'ZendSkeletonModule',    
         'Invoice',
+        'Messaging',    
     ),
     'module_listener_options' => array( 
         'config_cache_enabled'     => false,
