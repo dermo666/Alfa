@@ -1,4 +1,11 @@
 <?php
+/**
+ * AMQP Connection Factory.
+ *
+ * TODO: Make this class open also channel in order to avoid code duplication - see Cli\MessagingConsumer
+ *
+ * @author tomas
+ */
 
 namespace App\Application;
 
@@ -9,8 +16,8 @@ class AmqpConnectionFactory
 
   /**
    * Configure and instantiate connection to Amqp Server.
-   * 
-   * @return 
+   *
+   * @return AMQPConnection
    */
   public function getAmqpConnection()
   {
@@ -18,8 +25,8 @@ class AmqpConnectionFactory
     define('PORT', 5672);
     define('USER', 'guest');
     define('PASS', 'guest');
-    define('VHOST', '/');    
-    
+    define('VHOST', '/');
+
     return new AMQPConnection(HOST, PORT, USER, PASS, VHOST);
   }
 }

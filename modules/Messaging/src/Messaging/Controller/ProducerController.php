@@ -1,4 +1,11 @@
 <?php
+/**
+ * Controller to demonstrate messaging feature - producing of messages.
+ *
+ * Use the Cli controller MessagingConsumer for consuming of messages.
+ *
+ * @author tomas
+ */
 
 namespace Messaging\Controller;
 
@@ -13,40 +20,61 @@ class ProducerController extends ActionController
 
   const QUEUE_NAME    = 'test_queue';
   const EXCHANGE_NAME = 'router';
-  
+
   /**
    * AMQP Connection.
-   * 
+   *
    * @var   AMQPConnection
    */
-  private $connection = NULL; 
-  
+  private $connection = NULL;
+
   /**
    * Index Action.
-   * 
+   *
    * @return void
    */
   public function indexAction()
   {
     $channel = $this->getAmqpChannel();
-    
+
     $msg_body = 'This is message body';
     $msg      = new AMQPMessage($msg_body, array('content_type' => 'text/plain', 'delivery-mode' => 2));
-    
+
     $channel->basic_publish($msg, self::EXCHANGE_NAME);
-    
+
     $this->closeAmqpChannel($channel);
 
     return array(
             'message' => 'Message sent: '.$msg_body,
            );
   }
-  
+
+  /**
+   * Consumer Quit Action.
+   *
+   * @return void
+   */
+  public function consumerQuitAction()
+  {
+    $channel = $this->getAmqpChannel();
+
+    $msg_body = 'quit';
+    $msg      = new AMQPMessage($msg_body, array('content_type' => 'text/plain', 'delivery-mode' => 2));
+
+    $channel->basic_publish($msg, self::EXCHANGE_NAME);
+
+    $this->closeAmqpChannel($channel);
+
+    return array(
+            'message' => 'Message sent: '.$msg_body,
+           );
+  }
+
   /**
    * DI Setter injection for AMQP Connection.
-   * 
+   *
    * @param AmqpConnectionFactory $amqpConnectionFactory Connection Factory.
-   * 
+   *
    * @return ProducerController
    */
   public function setAmqpConnectionFactory(AmqpConnectionFactory $amqpConnectionFactory)
@@ -54,10 +82,10 @@ class ProducerController extends ActionController
     $this->connection = $amqpConnectionFactory->getAmqpConnection();
     return $this;
   }
-  
+
   /**
    * Get connected AMQP Channel.
-   * 
+   *
    * @return AMQPChannel
    */
   private function getAmqpChannel()
@@ -70,32 +98,32 @@ class ProducerController extends ActionController
         durable: true // the queue will survive server restarts
         exclusive: false // the queue can be accessed in other channels
         auto_delete: false //the queue won't be deleted once the channel is closed.
-    */ 
+    */
     $channel->queue_declare(self::QUEUE_NAME, false, true, false, false);
-    
+
     /*
         name: $exchange
         type: direct
         passive: false
         durable: true // the exchange will survive server restarts
         auto_delete: false //the exchange won't be deleted once the channel is closed.
-    */    
-    $channel->exchange_declare(self::EXCHANGE_NAME, 'direct', false, true, false);    
+    */
+    $channel->exchange_declare(self::EXCHANGE_NAME, 'direct', false, true, false);
 
     $channel->queue_bind(self::QUEUE_NAME, self::EXCHANGE_NAME);
     return $channel;
   }
-  
+
   /**
    * Close connection to AMQP Server.
-   * 
+   *
    * @param AMQPChannel $channel AMQP Channel.
-   * 
+   *
    * @return void
    */
   private function closeAmqpChannel(AMQPChannel $channel)
   {
     $channel->close();
-    $this->connection->close();    
+    $this->connection->close();
   }
 }

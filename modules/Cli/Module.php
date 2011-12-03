@@ -28,6 +28,6 @@ class Module
 
     public static function getConfig()
     {
-        return new Config(include __DIR__ . '/configs/config.php');
+        return new Config(include __DIR__ . '/configs/module.config.php');
     }
 }
