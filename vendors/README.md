@@ -1,4 +1,4 @@
-This `vendors/` directory is where third-party modules should be installed.
+This is `vendors/` directory where third-party modules should be installed.
 
 Required libraries: 
 /Doctrine
