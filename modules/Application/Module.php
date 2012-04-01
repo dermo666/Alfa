@@ -26,12 +26,14 @@ class Module implements AutoloaderProvider
             'Zend\Loader\StandardAutoloader' => array(
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__ . '/src/' . __NAMESPACE__,
+                		'App' 				=> __DIR__ . '/../../library/App',
+                		'Domain'			=> __DIR__ . '/../../library/Domain',
                     'Doctrine'    => __DIR__ . '/../../vendors/Doctrine',
                     'Gedmo'       => __DIR__ . '/../../vendors/Doctrine/Extension/Gedmo',
-//                    'Doctrine\\ODM'    => __DIR__ . '/../../vendors/Doctrine/ODM',
-//                    'Doctrine\\DBAL'   => __DIR__ . '/vendors/Doctrine/DBAL',
-//                    'Doctrine\\Common' => __DIR__ . '/vendors/Doctrine/Common',
-//                    'Doctrine\\Common' => __DIR__ . '/vendor/Doctrine/Common',                    
+                    'Doctrine\\ODM'    => __DIR__ . '/../../vendors/Doctrine/ODM',
+                    'Doctrine\\DBAL'   => __DIR__ . '/vendors/Doctrine/DBAL',
+                    'Doctrine\\Common' => __DIR__ . '/vendors/Doctrine/Common',
+                    'Doctrine\\Common' => __DIR__ . '/vendor/Doctrine/Common',                    
                 ),
             ),
         );
@@ -39,49 +41,15 @@ class Module implements AutoloaderProvider
 
     public function getConfig($env = null)
     {
-        return include __DIR__ . '/configs/module.config.php';
+        return include __DIR__ . '/config/module.config.php';
     }
     
     public function initializeView($e)
     {
         $app          = $e->getParam('application');
+        $basePath     = $app->getRequest()->getBasePath();        
         $locator      = $app->getLocator();
-        $config       = $e->getParam('config');
-        $view         = $this->getView($app);
-        $viewListener = $this->getViewListener($view, $config);
-        $app->events()->attachAggregate($viewListener);
-        $events       = StaticEventManager::getInstance();
-        $viewListener->registerStaticListeners($events, $locator);
-    }
-
-    protected function getViewListener($view, $config)
-    {
-        if ($this->viewListener instanceof View\Listener) {
-            return $this->viewListener;
-        }
-
-        $viewListener       = new View\Listener($view, $config->layout);
-        $viewListener->setDisplayExceptionsFlag($config->display_exceptions);
-
-        $this->viewListener = $viewListener;
-        return $viewListener;
-    }
-
-    protected function getView($app)
-    {
-        if ($this->view) {
-            return $this->view;
-        }
-
-        $di     = $app->getLocator();
-        $view   = $di->get('view');
-        $url    = $view->plugin('url');
-        $url->setRouter($app->getRouter());
-
-        $view->plugin('headTitle')->setSeparator(' - ')
-                                  ->setAutoEscape(false)
-                                  ->append('Application');
-        $this->view = $view;
-        return $view;
+        $renderer     = $locator->get('Zend\View\Renderer\PhpRenderer');
+        $renderer->plugin('basePath')->setBasePath($basePath);       
     }
 }

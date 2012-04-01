@@ -10,7 +10,7 @@ return array(
                     'entityManagerFactory' => 'App\Application\MongoConnectionFactory',
                 ),
             ),
-            'Zend\View\PhpRenderer' => array(
+            'Zend\View\Rendered\PhpRenderer' => array(
                 'parameters' => array(
                     'options'  => array(
                         'script_paths' => array(

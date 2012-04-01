@@ -5,7 +5,10 @@
   <?php echo $this->headTitle();  ?>
   <meta name="keywords" content="Zend Framework 2 MongoDB" />
   <meta name="description" content="This is a research project of Zend Framework 2.0" />
-  <?php echo $this->headLink()->prependStylesheet('/css/style.css'); ?>
+  <?php 
+  $basePath = $this->basePath();
+  echo $this->headLink()->prependStylesheet($basePath . '/css/style.css');
+  ?>
 </head>
 <body>
   <div id="logo">
@@ -37,7 +40,7 @@
   <!-- end #header-wrapper -->
   <div id="page">
     <div id="content">
-      <?php echo $this->raw('content'); ?>      
+      <?php echo $this->content; ?>      
     </div><!-- end #content -->
     <div id="sidebar">
       <ul>
