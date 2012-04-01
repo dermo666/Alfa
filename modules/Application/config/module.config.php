@@ -75,7 +75,7 @@ return array(
             'Zend\View\Resolver\TemplateMapResolver' => array(
                 'parameters' => array(
                     'map'  => array(
-                        'layout/layout' => __DIR__ . '/../views/layout/layout.phtml',
+                        'layout/layout' => __DIR__ . '/../view/layout/layout.phtml',
                     ),
                 ),
             ),
@@ -84,7 +84,7 @@ return array(
             'Zend\View\Resolver\TemplatePathStack' => array(
                 'parameters' => array(
                     'paths'  => array(
-                        'application' => __DIR__ . '/../views',
+                        'application' => __DIR__ . '/../view',
                     ),
                 ),
             ),
