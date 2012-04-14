@@ -10,8 +10,8 @@ return array(
         'config_cache_enabled'     => false,
         'cache_dir'                => realpath(__DIR__ . '/../data/cache'),
     		'module_paths' => array(
-    				realpath(__DIR__ . '/../modules'),
-    				realpath(__DIR__ . '/../vendors'),
+    				realpath(__DIR__ . '/../module'),
+    				realpath(__DIR__ . '/../vendor'),
     		),
     ),
 );

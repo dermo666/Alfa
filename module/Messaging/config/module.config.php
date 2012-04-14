@@ -14,7 +14,7 @@ return array(
                 'parameters' => array(
                     'options'  => array(
                         'script_paths' => array(
-                            'Messaging' => __DIR__ . '/../views',
+                            'Messaging' => __DIR__ . '/../view',
                         ),
                     ),
                 ),

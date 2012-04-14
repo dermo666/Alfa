@@ -14,7 +14,7 @@ return array(
                 'parameters' => array(
                     'options'  => array(
                         'script_paths' => array(
-                            'Invoice' => __DIR__ . '/../views',
+                            'Invoice' => __DIR__ . '/../view',
                         ),
                     ),
                 ),

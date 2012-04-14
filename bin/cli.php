@@ -1,26 +1,20 @@
 <?php
-// Define application environment
-defined('APPLICATION_ENV')
-    || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
-
-// Ensure library/ is on include_patz
-set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(__DIR__ . '/../library'),
-    get_include_path(),
-)));
-
+chdir(dirname(__DIR__));
 require_once 'Zend/Loader/AutoloaderFactory.php';
-Zend\Loader\AutoloaderFactory::factory(array('Zend\Loader\StandardAutoloader' => array()));
+Zend\Loader\AutoloaderFactory::factory();
 
-$appConfig = include __DIR__ . '/../configs/application.config.php';
+$appConfig = include __DIR__ . '/../config/application.config.php';
 $appConfig['modules'][] = 'Cli';
 
-$moduleLoader = new Zend\Loader\ModuleAutoloader($appConfig['module_paths']);
-$moduleLoader->register();
+$listenerOptions  = new Zend\Module\Listener\ListenerOptions($appConfig['module_listener_options']);
+$defaultListeners = new Zend\Module\Listener\DefaultListenerAggregate($listenerOptions);
+$defaultListeners->getConfigListener()->addConfigGlobPath('config/autoload/*.config.php');
 
 $moduleManager = new Zend\Module\Manager($appConfig['modules']);
+$moduleManager->events()->attachAggregate($defaultListeners);
 $moduleManager->loadModules();
-$config = $moduleManager->getMergedConfig();
+
+$config = $defaultListeners->getConfigListener()->getMergedConfig();
 
 // Create application, bootstrap, and run
 $bootstrap   = new $config->cli_bootstrap_class($config);

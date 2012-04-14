@@ -133,9 +133,10 @@ class Application /* implements AppContext */
 
     $help .= PHP_EOL . $this->getOpts ()->getUsageMessage () . PHP_EOL;
 
-    $decorator = new Blockize ();
-
-    $help = $decorator->decorate ( $help, 78 );
+    // TODO: Could not find this class anymore.
+		//     $decorator = new Blockize ();
+	
+		//     $help = $decorator->decorate ( $help, 78 );
 
     echo $help . PHP_EOL;
   }
