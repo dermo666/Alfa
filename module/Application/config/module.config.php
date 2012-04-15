@@ -2,11 +2,33 @@
 return array(
     'di' => array(
         'instance' => array(
-
             // Setup for controllers.
         		'alias' => array(
-        				'index' => 'Application\Controller\IndexController',
+        				'index'   => 'Application\Controller\IndexController',
+        				'caching' => 'Application\Controller\CachingController',        				
         		),
+            'Application\Controller\CachingController' => array(
+                'parameters' => array(
+                    'cache' => 'Zend\Cache\Storage\Adapter\Memcached',
+                ),
+            ),
+            'Zend\Cache\Storage\Adapter\Memcached' => array(
+                'parameters' => array(
+                    'options' => 'Zend\Cache\Storage\Adapter\MemcachedOptions',
+                ),
+            ),    
+            'Zend\Cache\Storage\Adapter\MemcachedOptions' => array(
+                // Could not make the options work. When empty it uses default setting.
+//                 'parameters' => array(
+//                     'options' => array(
+//                         'namespace' => 'alfa',
+//                   	    'servers'   => array(
+//                   	        'host' => '127.0.0.1',
+//                   	        'port' => '11211',
+//                   	    ),
+//                   	),
+//                 ),
+            ),
             // Injecting the plugin broker for controller plugins into
             // the action controller for use by all controllers that
             // extend it
@@ -35,7 +57,7 @@ return array(
                                 ),
                                 'defaults' => array(
                                     'controller' => 'Application\Controller\IndexController',
-                                    'action'     => 'test',
+                                    'action'     => 'index',
                                 ),
                             ),
                         ),
